@@ -39,7 +39,7 @@ fn readLine(reader: *std.Io.Reader) !?[]const u8 {
 
 pub fn main() !void {
     const file = try openFile();
-    var readBuffer: [4096]u8 = undefined;
+    var readBuffer: [1024 * 128]u8 = undefined;
     var reader = file.reader(&readBuffer);
 
     var columnBuffer: [@sizeOf(csvclass.Column) * 32]u8 = undefined;

@@ -73,8 +73,9 @@ pub fn init(alloc: std.mem.Allocator, header_: []const u8, delim: u8) ![]Column 
     for (0..cols) |col| {
         const until = std.mem.indexOfScalar(u8, header, delim) orelse header.len;
         var name: [32]u8 = .{0} ** 32;
-        std.mem.copyForwards(u8, &name, header[0..@min(until, 32)]);
-        std.debug.print("found column: \"{s}\"\n", .{name});
+        const num = @min(until, 32);
+        @memcpy(name[0..num], header[0..num]);
+        // std.debug.print("found column: \"{s}\"\n", .{name});
         columns[col] = .{
             .name = name,
             .max_len = 0,
